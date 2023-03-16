@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Youtube Downloader</title>
+    <script type="text/javascript" src="/eel.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/adaptive.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="logo">
+            <a href="https://www.youtube.com/" target="_blank"></a>
+        </div>
+        <div class="app-name">
+            <h1>Youtube Downloader</h1>
+        </div>
+    </header>
+    <main>
+        <input type="text" class="url text-box" id="urlTextBox" placeholder="Video url" autocomplete="off">
+        <div class="folder">
+            <input type="text" class="path text-box" id="pathTextBox" placeholder="Path for saving" autocomplete="off">
+            <button class="open-folder" id="openFolder"><img src="Image/folderIcon.png" alt="folder"></button>
+            <script src="JsInterlayer/folderSelector.js"></script>
+        </div>
+    </main>
+    <footer>
+        <p class="status" id="status"></p>
+        <button class="download-button" id="downloadButton">Download</button>
+        <script src="JsInterlayer/downloader.js"></script>
+    </footer>
+</div>
+</body>
+</html>
