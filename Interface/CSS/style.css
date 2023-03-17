@@ -6,7 +6,17 @@
 }
 
 ::-webkit-scrollbar {
-    display: none;
+    width: 8px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #2d2d2d;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background-color: #272727;
 }
 
 body {
@@ -46,7 +56,7 @@ body {
     width: 100%;
     filter: invert(1);
     border-radius: 50%;
-    background-image: url("../Image/logo.png");
+    background-image: url("../Image/partOfLogo.png");
     background-size: 45% 45%;
     background-repeat: no-repeat;
     background-position: calc(100% / 2 + 5px) center;
@@ -75,21 +85,39 @@ body {
     color: white;
     background-color: #6c6c6c;
     border-radius: 15px;
-    border: None;
+    border: 0 solid #be1414;
     font-size: 105%;
+    transition-duration: 0.125s;
+}
+
+.container main .text-box:hover,
+.container main .text-box:focus {
+    border-width: 3px;
 }
 
 .container main .text-box::placeholder {
     color: #ababab;
 }
 
-.container main .url {
-    padding: 15px;
-    width: 70%;
-    height: 25px;
+.container main .video-box {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
+    width: calc(70% + 30px);
+    height: 55px;
 }
 
-.container main .folder {
+.container main .video-box .url {
+    width: calc(100% - 30px);
+    padding: 15px;
+}
+
+.container main .video-box .url:hover,
+.container main .video-box .url:focus {
+    width: calc(100% - 36px);
+}
+
+.container main .folder-box {
     display: grid;
     grid-template-columns: auto 70px;
     grid-template-rows: 100%;
@@ -97,7 +125,7 @@ body {
     height: 55px;
 }
 
-.container main .folder .path {
+.container main .folder-box .path {
     width: calc(100% - 30px);
     padding-left: 15px;
     padding-right: 15px;
@@ -105,23 +133,23 @@ body {
     border-bottom-right-radius: 0;
 }
 
-.container main .folder .open-folder {
+.container main .folder-box .open-folder {
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     background-color: #be1414;
     border: none;
 }
 
-.container main .folder .open-folder:hover {
+.container main .folder-box .open-folder:hover {
     cursor: pointer;
 }
 
-.container main .folder .open-folder:hover img {
+.container main .folder-box .open-folder:hover img {
     max-width: 50%;
     max-height: 50%;
 }
 
-.container main .folder .open-folder img {
+.container main .folder-box .open-folder img {
     max-width: 65%;
     max-height: 65%;
     filter: invert(1);
