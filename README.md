@@ -16,7 +16,7 @@ The app interface is very simple. It was written in HTML, CSS and JS. Here is a 
 
 Main branch
 > To run the main app code, download the archive of the **"main"** branch, unzip it, open the folder in the console
-> and run the command `python3.9 -m main`. Python must also be installed on your computer with the libraries that are
+> and run the command `python -m main`. Python must also be installed on your computer with the libraries that are
 > written above.
 
 Windows branch
@@ -29,8 +29,8 @@ Linux branch
 
 ## How to use
 
-To download a video from YouTube you need to enter the URL link of the video and the path to the folder where you want
-save it. Then click the download button and wait for the download to finish.
+To download a video from YouTube (the logo in the app is a link to YouTube) you need to enter the URL link of the video
+and the path to the folder where you want save it. Then click the download button and wait for the download to finish.
 
 The video processing progress is displayed in the console. To stop downloading and processing video you need to close
 the console, but then the app logic will not work. So make sure you want to download a big video before doing that.

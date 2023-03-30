@@ -1,28 +1,19 @@
 document.getElementById('downloadButton').onclick = StartDownload
+document.getElementById('urlTextBox').oninput = ViewVideoInfo
 
+let url = document.getElementById("urlTextBox");
+let path = document.getElementById("pathTextBox");
 let status = document.getElementById("status");
 
-function SetToZero() {
-    if (status.innerHTML != "Downloading...") {
-        status.innerHTML = "";
-        document.getElementById("urlTextBox").value = "";
-    }
+async function ViewVideoInfo() {
+    status.innerHTML = await eel.GetVideoInfo(url.value)();
 }
 
 async function StartDownload() {
-    let url = document.getElementById("urlTextBox").value;
-    let path = document.getElementById("pathTextBox").value;
+    let isPath = await eel.CheckPath(path.value)();
 
-    let isPath = await eel.CheckPath(path)();
-
-    if (isPath && (status.innerHTML == "" || status.innerHTML == "Server error, try again")) {
+    if (isPath) {
         status.innerHTML = "Downloading...";
-
-        let result = await eel.DowloadVideo(url, path)();
-        status.innerHTML = result;
-
-        if (result && status.innerHTML != "Server error, try again") {
-            setTimeout(SetToZero, 7500);
-        }
+        status.innerHTML = await eel.DowloadVideo(url.value, path.value)();
     }
 }

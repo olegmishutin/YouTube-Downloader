@@ -3,58 +3,73 @@ import shutil
 from pytube import YouTube
 from moviepy.editor import VideoFileClip, AudioFileClip, CompositeAudioClip
 
-cachePath="cache"
 
+class Downloader():
+    def __init__(self, cachePathName: str):
+        self.cachePath=cachePathName
+        self.youtube=None
 
-def GetFilename():
-    file=os.path.basename(os.listdir(cachePath)[0])
-    fileName=os.path.splitext(file)[0]
+    def GetVideoInfo(self, source: str):
+        try:
+            self.youtube=YouTube(source)
 
-    return fileName
+            author=self.youtube.author
+            title=self.youtube.title
 
+            return f"Author: {author}; Title: {title}"
+        except Exception:
+            self.youtube=None
 
-def CombineAudioVideoFiles(filename: str, pathToCombine: str):
-    videoClip=VideoFileClip(f"{cachePath}/{filename}.mp4")
-    audioClip=AudioFileClip(f"{cachePath}/{filename}.webm")
+            return "Incorrect link or server error" if source else ""
 
-    try:
-        videoClip.audio=CompositeAudioClip([audioClip])
-        videoClip.write_videofile(f"{pathToCombine}/{filename}.mp4",
-                                  temp_audiofile=f"{cachePath}/Cache.mp3")
-    finally:
-        shutil.rmtree(cachePath)
+    def GetFilename(self):
+        file=os.path.basename(os.listdir(self.cachePath)[0])
+        fileName=os.path.splitext(file)[0]
 
+        return fileName
 
-def DefineMaxResolution(youtube):
-    resolutionCodec={"1080p": 137, "720p": 136, "480p": 135, "360p": 134,
-                     "240p": 133, "144p": 166}
+    def CombineAudioVideoFiles(self, filename: str, pathToCombine: str):
+        videoClip=VideoFileClip(f"{self.cachePath}/{filename}.mp4")
+        audioClip=AudioFileClip(f"{self.cachePath}/{filename}.webm")
 
-    for resolution in resolutionCodec:
-        filter=youtube.streams.filter(file_extension='mp4', res=resolution,
-                                      audio_codec=None).itag_index
+        try:
+            videoClip.audio=CompositeAudioClip([audioClip])
+            videoClip.write_videofile(f"{pathToCombine}/{filename}.mp4",
+                                      temp_audiofile=\
+                                          f"{self.cachePath}/Cache.mp3")
+        finally:
+            shutil.rmtree(self.cachePath)
 
-        if resolutionCodec.get(resolution) in filter.keys():
-            return resolutionCodec.get(resolution)
+    def GetMaxResolution(self):
+        resolutionCodec={"1080p": 137, "720p": 136, "480p": 135, "360p": 134,
+                         "240p": 133, "144p": 166}
 
+        for resolution in resolutionCodec:
+            filter=self.youtube.streams.filter(file_extension='mp4',
+                                               audio_codec=None,
+                                               res=resolution).itag_index
 
-def Download(source: str, pathForSaving: str):
-    try:
-        youtube=YouTube(source)
-    except Exception:
-        return ""
+            if resolutionCodec.get(resolution) in filter.keys():
+                return resolutionCodec.get(resolution)
 
-    if not os.path.isdir(cachePath):
-        os.mkdir(cachePath)
+    def DownloadVideo(self, source: str, pathForSaving: str):
+        if self.youtube:
+            if not os.path.isdir(self.cachePath):
+                os.mkdir(self.cachePath)
 
-    try:
-        downloader=youtube.streams.get_by_itag(DefineMaxResolution(youtube))
-        downloader.download(output_path=cachePath)
+            try:
+                downloader=\
+                    self.youtube.streams.get_by_itag(self.GetMaxResolution())
+                downloader.download(output_path=self.cachePath)
 
-        downloader=youtube.streams.get_by_itag(251)
-        downloader.download(output_path=cachePath)
-    except (Exception, KeyboardInterrupt):
-        shutil.rmtree(cachePath)
-        return "Server error, try again"
+                downloader=self.youtube.streams.get_by_itag(251)
+                downloader.download(output_path=self.cachePath)
+            except (Exception, KeyboardInterrupt):
+                shutil.rmtree(self.cachePath)
 
-    CombineAudioVideoFiles(GetFilename(), pathForSaving)
-    return f"Video downloaded in {pathForSaving}"
+                return "Server error, try again"
+
+            self.CombineAudioVideoFiles(self.GetFilename(), pathForSaving)
+            return f"Video downloaded in {pathForSaving}"
+        else:
+            return "Incorrect link"
