@@ -32,13 +32,10 @@ class Downloader():
         videoClip=VideoFileClip(f"{self.__cachePath}/{filename}.mp4")
         audioClip=AudioFileClip(f"{self.__cachePath}/{filename}.webm")
 
-        try:
-            videoClip.audio=CompositeAudioClip([audioClip])
-            videoClip.write_videofile(f"{pathToCombine}/{filename}.mp4",
-                                      temp_audiofile=\
-                                          f"{self.__cachePath}/Cache.mp3")
-        finally:
-            shutil.rmtree(self.__cachePath)
+        videoClip.audio=CompositeAudioClip([audioClip])
+        videoClip.write_videofile(f"{pathToCombine}/{filename}.mp4",
+                                  temp_audiofile=\
+                                      f"{self.__cachePath}/Cache.mp3")
 
     def GetMaxResolution(self):
         resolutionCodec={"1080p": [137, 299, 399, 699],
@@ -59,9 +56,11 @@ class Downloader():
 
     def DownloadVideo(self, source: str, pathForSaving: str):
         if self.__youtube:
-            if not os.path.isdir(self.__cachePath):
-                os.mkdir(self.__cachePath)
+            if os.path.isdir(self.__cachePath):
+                if os.listdir(self.__cachePath):
+                    shutil.rmtree(self.__cachePath)
 
+            os.mkdir(self.__cachePath)
             try:
                 downloader=\
                     self.__youtube.streams.get_by_itag(
@@ -70,9 +69,7 @@ class Downloader():
 
                 downloader=self.__youtube.streams.get_by_itag(251)
                 downloader.download(output_path=self.__cachePath)
-            except (Exception, KeyboardInterrupt):
-                shutil.rmtree(self.__cachePath)
-
+            except Exception:
                 return "Server error, try again"
 
             self.CombineAudioVideoFiles(self.GetFileName(), pathForSaving)
