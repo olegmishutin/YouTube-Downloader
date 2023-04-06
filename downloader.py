@@ -5,8 +5,8 @@ from moviepy.editor import VideoFileClip, AudioFileClip, CompositeAudioClip
 
 
 class Downloader():
-    def __init__(self, cachePathName: str):
-        self.__cachePath=cachePathName
+    def __init__(self):
+        self.__cache="cache"
         self.__youtube=None
 
     def GetVideoInfo(self, source: str):
@@ -23,21 +23,22 @@ class Downloader():
             return "Incorrect link or server error" if source else ""
 
     def GetFileName(self):
-        file=os.path.basename(os.listdir(self.__cachePath)[0])
+        file=os.path.basename(os.listdir(self.__cache)[0])
         fileName=os.path.splitext(file)[0]
 
         return fileName
 
     def CombineAudioVideoFiles(self, filename: str, pathToCombine: str):
-        videoClip=VideoFileClip(f"{self.__cachePath}/{filename}.mp4")
-        audioClip=AudioFileClip(f"{self.__cachePath}/{filename}.webm")
+        videoClip=VideoFileClip(f"{self.__cache}/{filename}.mp4")
+        audioClip=AudioFileClip(f"{self.__cache}/{filename}.webm")
 
         videoClip.audio=CompositeAudioClip([audioClip])
         videoClip.write_videofile(f"{pathToCombine}/{filename}.mp4",
                                   temp_audiofile=\
-                                      f"{self.__cachePath}/Cache.mp3")
+                                      f"{self.__cache}/Cache.mp3")
 
-    def GetMaxResolution(self):
+    def GetMaxRes(self):
+        streams=self.__youtube.streams
         resolutionCodec={"1080p": [137, 299, 399, 699],
                          "720p": [136, 298, 398, 698],
                          "480p": [135, 397, 697],
@@ -46,9 +47,9 @@ class Downloader():
                          "144p": [160, 394, 694]}
 
         for resolution in resolutionCodec:
-            filter=self.__youtube.streams.filter(file_extension='mp4',
-                                                 audio_codec=None,
-                                                 res=resolution).itag_index
+            filter=streams.filter(file_extension='mp4',
+                                  audio_codec=None,
+                                  res=resolution).itag_index
 
             for codec in resolutionCodec.get(resolution):
                 if codec in filter.keys():
@@ -56,23 +57,22 @@ class Downloader():
 
     def DownloadVideo(self, source: str, pathForSaving: str):
         if self.__youtube:
-            if os.path.isdir(self.__cachePath):
-                if os.listdir(self.__cachePath):
-                    shutil.rmtree(self.__cachePath)
+            if os.path.isdir(self.__cache) and os.listdir(self.__cache):
+                shutil.rmtree(self.__cache)
 
-            os.mkdir(self.__cachePath)
+            os.mkdir(self.__cache)
             try:
-                downloader=\
-                    self.__youtube.streams.get_by_itag(
-                        self.GetMaxResolution())
-                downloader.download(output_path=self.__cachePath)
+                video=self.__youtube.streams.get_by_itag(self.GetMaxRes())
+                video.download(output_path=self.__cache)
 
-                downloader=self.__youtube.streams.get_by_itag(251)
-                downloader.download(output_path=self.__cachePath)
+                audio=self.__youtube.streams.get_by_itag(251)
+                audio.download(output_path=self.__cache)
+
+                self.CombineAudioVideoFiles(self.GetFileName(), pathForSaving)
             except Exception:
                 return "Server error, try again"
+            finally:
+                shutil.rmtree(self.__cache)
 
-            self.CombineAudioVideoFiles(self.GetFileName(), pathForSaving)
             return f"Video downloaded in {pathForSaving}"
-        else:
-            return "Incorrect link"
+        return "Incorrect link or server error"

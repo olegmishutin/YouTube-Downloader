@@ -40,7 +40,7 @@ if __name__=="__main__":
     windowSize=(800, 550)
 
     tkLayer=TkinterLayer()
-    ytDownloader=Downloader(cachePathName="cache")
+    ytDownloader=Downloader()
 
     eel.init("Interface")
     eel.start("index.html", size=windowSize, shutdown_delay=0,
