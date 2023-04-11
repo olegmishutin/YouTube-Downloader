@@ -83,44 +83,7 @@ body {
     justify-content: space-around;
 }
 
-.container main .text-box {
-    outline: none;
-    color: white;
-    background-color: #6c6c6c;
-    border-radius: 15px;
-    border: 0 solid #be1414;
-    font-size: 105%;
-    transition-duration: 0.125s;
-}
-
-.container main .text-box:hover,
-.container main .text-box:focus {
-    border-width: 3px;
-}
-
-.container main .text-box::placeholder {
-    color: #ababab;
-}
-
-.container main .video-box {
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 100%;
-    width: calc(70% + 30px);
-    height: 55px;
-}
-
-.container main .video-box .url {
-    width: calc(100% - 30px);
-    padding: 15px;
-}
-
-.container main .video-box .url:hover,
-.container main .video-box .url:focus {
-    width: calc(100% - 36px);
-}
-
-.container main .folder-box {
+.container main .input-fields-box {
     display: grid;
     grid-template-columns: auto 70px;
     grid-template-rows: 100%;
@@ -128,31 +91,74 @@ body {
     height: 55px;
 }
 
-.container main .folder-box .path {
+.container main .input-fields-box .text-box {
+    outline: none;
+    color: white;
+    background-color: #6c6c6c;
+    border: 0 solid #be1414;
+    font-size: 105%;
+    transition-duration: 0.125s;
     width: calc(100% - 30px);
     padding-left: 15px;
     padding-right: 15px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 
-.container main .folder-box .open-folder {
+.container main .input-fields-box .text-box:hover,
+.container main .input-fields-box .text-box:focus {
+    border-width: 3px;
+}
+
+.container main .input-fields-box .text-box::placeholder {
+    color: #ababab;
+}
+
+.container main .input-fields-box .resolution {
+    outline: none;
+    border: none;
+    font-weight: bold;
+    font-size: 95%;
+    background-color: #41ebeb;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    -webkit-appearance: none;
+    text-align: center;
+    background-image: url("../Image/resolutionIcon.png");
+    background-size: 30px 30px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    filter: invert(1);
+    transition-duration: 0.3s;
+}
+
+.container main .input-fields-box .resolution:hover {
+    cursor: pointer;
+    background-size: 23.5px 23.5px;
+}
+
+.container main .input-fields-box .resolution option{
+    color: white;
+    background-color: #be1414;
+}
+
+.container main .input-fields-box .open-folder {
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     background-color: #be1414;
     border: none;
 }
 
-.container main .folder-box .open-folder:hover {
+.container main .input-fields-box .open-folder:hover {
     cursor: pointer;
 }
 
-.container main .folder-box .open-folder:hover img {
+.container main .input-fields-box .open-folder:hover img {
     max-width: 50%;
     max-height: 50%;
 }
 
-.container main .folder-box .open-folder img {
+.container main .input-fields-box .open-folder img {
     max-width: 65%;
     max-height: 65%;
     filter: invert(1);

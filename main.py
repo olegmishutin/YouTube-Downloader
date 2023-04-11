@@ -12,6 +12,11 @@ def GetVideoInfo(src: str):
 
 
 @eel.expose
+def GetVideoResolutions():
+    return ytDownloader.GetVideoResolutions()
+
+
+@eel.expose
 def SelectFolder():
     return tkLayer.GetPathForDownload()
 
@@ -22,8 +27,8 @@ def CheckPath(path: str):
 
 
 @eel.expose
-def DowloadVideo(src: str, dir: str):
-    return ytDownloader.DownloadVideo(src, dir)
+def DowloadVideo(src: str, dir: str, res: str):
+    return ytDownloader.DownloadVideo(src, dir, res)
 
 
 @eel.expose
