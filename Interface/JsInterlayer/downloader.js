@@ -5,34 +5,41 @@ let url = document.getElementById("urlTextBox");
 let path = document.getElementById("pathTextBox");
 let status = document.getElementById("status");
 let resolution = document.getElementById("resolution");
+let availableResolution = document.getElementById("available-resolution");
+let selectedResolution = document.getElementById("selectedResolution");
+
+function ChangeSelectedResolution() {
+    selectedResolution.innerHTML = this.innerHTML;
+}
 
 async function GetFullVideoInfo() {
     status.innerHTML = await eel.GetVideoInfo(url.value)();
     let availableResolutions = await eel.GetVideoResolutions()();
 
-    let option = document.getElementById("available-resolution");
-
-    if (resolution.length > 0) {
-        for (let i = 0; resolution.length > 0; i++) {
-            let option = document.getElementById(`available-resolution ${i}`);
-            option.parentNode.removeChild(option);
-        }
+    for (let i = 0; availableResolution.childNodes.length > 0; i++) {
+        let liTag = document.getElementById(`res-li-${i}`);
+        liTag.parentNode.removeChild(liTag);
     }
 
     for (let i = 0; i < availableResolutions.length; i++) {
-        let option = document.createElement("option");
+        let liTag = document.createElement("li");
+        liTag.id = `res-li-${i}`;
 
-        option.value = availableResolutions[i];
-        option.innerHTML = availableResolutions[i];
-        option.id = `available-resolution ${i}`;
+        availableResolution.append(liTag);
 
-        resolution.append(option);
+        let buttonTag = document.createElement("button");
+        buttonTag.id = `res-button-${i}`;
+        buttonTag.innerHTML = availableResolutions[i];
+        buttonTag.onclick = ChangeSelectedResolution;
+
+        liTag.append(buttonTag);
     }
 
-    if (availableResolutions.length > 0) {
-        resolution.style.backgroundImage = "none";
+    if (availableResolutions.length === 0) {
+        selectedResolution.innerHTML = "";
+        resolution.removeAttribute("open")
     } else {
-        resolution.style.backgroundImage = 'url("../Image/resolutionIcon.png")';
+        selectedResolution.innerHTML = availableResolutions[0];
     }
 }
 
@@ -41,6 +48,6 @@ async function StartDownload() {
 
     if (isPath) {
         status.innerHTML = "Downloading...";
-        status.innerHTML = await eel.DowloadVideo(url.value, path.value, resolution.value)();
+        status.innerHTML = await eel.DowloadVideo(url.value, path.value, selectedResolution.innerHTML)();
     }
 }

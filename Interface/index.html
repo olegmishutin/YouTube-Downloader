@@ -23,7 +23,13 @@
     <main>
         <div class="input-fields-box">
             <input type="text" class="text-box" id="urlTextBox" placeholder="Video url" autocomplete="off">
-            <select class="resolution" id="resolution"></select>
+            <details class="resolution" id="resolution">
+                <summary>
+                    <img src="Image/resolutionIcon.png" alt="resolution">
+                    <span class="selected-resolution" id="selectedResolution"></span>
+                </summary>
+                <ul id="available-resolution"></ul>
+            </details>
         </div>
         <div class="input-fields-box">
             <input type="text" class="text-box" id="pathTextBox" placeholder="Path for saving" autocomplete="off">
