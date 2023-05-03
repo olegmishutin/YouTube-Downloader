@@ -1,8 +1,16 @@
+:root {
+    --main-background-color: #414141;
+    --main-foreground-color: white;
+    --text-box-background-color: #6c6c6c;
+    --interactive-elements-color: #be1414;
+}
+
 * {
     font-family: Arial, serif;
     padding: 0;
     margin: 0;
     user-select: none;
+    list-style-type: none;
 }
 
 ::-webkit-scrollbar {
@@ -24,8 +32,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #414141;
+    background-color: var(--main-background-color);
     overflow-x: hidden;
+}
+
+img {
+    filter: invert(1);
+}
+
+button:hover,
+details:hover {
+    cursor: pointer;
 }
 
 .container {
@@ -35,55 +52,54 @@ body {
     padding: 20px;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: auto 40% 25%;
+    grid-template-rows: 150px 165px auto;
 }
 
-.container header {
+header {
     display: flex;
     justify-content: center;
 }
 
-.container header .logo {
+.logo {
     width: 110px;
     height: 110px;
-    background-color: #be1414;
     border-radius: 50%;
+    background-color: var(--interactive-elements-color);
     display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.container header .logo a {
-    height: 100%;
-    width: 100%;
-    filter: invert(1);
-    border-radius: 50%;
-    background-image: url("../Image/partOfLogo.png");
-    background-size: 45% 45%;
-    background-repeat: no-repeat;
-    background-position: calc(100% / 2 + 5px) center;
+.logo:hover img {
+    max-width: 37.5%;
+    max-height: 37.5%;
+}
+
+.logo img {
+    max-width: 50%;
+    max-height: 50%;
+    margin-left: 6px;
+    transform: rotate(90deg);
     transition-duration: 0.3s;
 }
 
-.container header .logo a:hover {
-    background-size: 35% 35%;
-}
-
-.container header .app-name {
-    width: 250px;
+.app-name {
     height: 110px;
-    color: white;
+    max-width: 250px;
+    color: var(--main-foreground-color);
     text-align: center;
     display: inline-flex;
     align-items: center;
 }
 
-.container main {
+main {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
 }
 
-.container main .input-fields-box {
+.input-field {
     display: grid;
     grid-template-columns: auto 70px;
     grid-template-rows: 100%;
@@ -91,158 +107,132 @@ body {
     height: 55px;
 }
 
-.container main .input-fields-box .text-box {
-    outline: none;
-    color: white;
-    background-color: #6c6c6c;
-    border: 0 solid #be1414;
-    font-size: 105%;
-    transition-duration: 0.125s;
+.text-box {
     width: calc(100% - 30px);
-    padding-left: 15px;
-    padding-right: 15px;
+    font-size: 105%;
+    color: var(--main-foreground-color);
+    background-color: var(--text-box-background-color);
+    border: 0 solid var(--interactive-elements-color);
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    outline: none;
+    transition-duration: 0.125s;
 }
 
-.container main .input-fields-box .text-box:hover,
-.container main .input-fields-box .text-box:focus {
-    border-width: 3px;
-}
-
-.container main .input-fields-box .text-box::placeholder {
+.text-box::placeholder {
     color: #ababab;
 }
 
-.container main .input-fields-box .resolution {
-    background-color: #be1414;
+.text-box:hover,
+.text-box:focus {
+    border-width: 3px;
+}
+
+.selection {
+    background-color: var(--interactive-elements-color);
+    border: none;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
 }
 
-.container main .input-fields-box .resolution[open] {
+.selection:hover img {
+    max-width: 57.5%;
+    max-height: 57.5%;
+}
+
+.selection img {
+    max-width: 72.5%;
+    max-height: 72.5%;
+    transition-duration: 0.3s;
+}
+
+.resolutions[open] {
     border-bottom-right-radius: 0;
 }
 
-.container main .input-fields-box .resolution summary:hover {
-    cursor: pointer;
-}
-
-.container main .input-fields-box .resolution summary:hover img {
-    max-width: 50%;
-    max-height: 50%;
-}
-
-.container main .input-fields-box .resolution summary:hover span {
+.resolutions:hover .selected-resolution {
     opacity: 0;
 }
 
-.container main .input-fields-box .resolution summary {
+.resolutions summary {
+    width: 100%;
     height: 100%;
-    list-style-type: none;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
 }
 
-.container main .input-fields-box .resolution summary img {
-    max-width: 65%;
-    max-height: 65%;
-    filter: invert(1);
-    transition-duration: 0.3s;
-}
-
-.container main .input-fields-box .resolution summary span {
+.selected-resolution {
     position: absolute;
-    color: #be1414;
-    font-size: 65%;
+    margin-bottom: 2.5px;
+    color: var(--interactive-elements-color);
+    font-size: 62.5%;
     font-weight: bold;
-    margin-bottom: 5.5px;
     transition-duration: 0.3s;
 }
 
-.container main .input-fields-box .resolution ul {
+.available-resolutions {
     z-index: 1;
     position: relative;
-    list-style-type: none;
 }
 
-.container main .input-fields-box .resolution ul button {
+.available-resolutions button {
     width: 100%;
-    height: 30px;
+    height: 28px;
     border: none;
-    background-color: #be1414;
-    color: white;
+    background-color: var(--interactive-elements-color);
+    color: var(--main-foreground-color);
     font-weight: bold;
     transition-duration: 0.3s;
 }
 
-.container main .input-fields-box .resolution ul button:hover{
-    cursor: pointer;
-    height: 40px;
+.available-resolutions button:hover {
+    height: 38px;
 }
 
-.container main .input-fields-box .resolution ul li:last-child button {
+.available-resolutions li:last-child button {
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
+    box-shadow: 0 3px 2px rgba(65, 65, 65, 0.5);
 }
 
-.container main .input-fields-box .open-folder {
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    background-color: #be1414;
-    border: none;
-}
-
-.container main .input-fields-box .open-folder:hover {
-    cursor: pointer;
-}
-
-.container main .input-fields-box .open-folder:hover img {
-    max-width: 50%;
-    max-height: 50%;
-}
-
-.container main .input-fields-box .open-folder img {
-    max-width: 65%;
-    max-height: 65%;
-    filter: invert(1);
-    transition-duration: 0.3s;
-}
-
-.container footer {
+footer {
+    color: var(--main-foreground-color);
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 50% 50%;
-    color: white;
+    grid-template-rows: auto 52px;
     padding: 0 55px 0 55px;
 }
 
-.container footer .status {
+.status {
     align-self: center;
     text-align: center;
     font-size: 90%;
+    padding-bottom: 12px;
 }
 
-.container footer .footer-buttons {
+.footer-buttons-box {
     display: inline-flex;
     justify-content: center;
     align-items: flex-end;
     gap: 15px;
 }
 
-.container footer .footer-buttons button {
+.footer-buttons-box button {
     width: 175px;
     height: 100%;
-    background-color: #be1414;
+    min-width: 105px;
+    color: var(--main-foreground-color);
+    font-size: 105%;
+    font-weight: bold;
+    background-color: var(--interactive-elements-color);
     border: none;
     border-radius: 15px;
-    color: white;
-    font-size: 110%;
     transition-duration: 0.3s;
 }
 
-.container footer .footer-buttons button:hover {
+.footer-buttons-box button:hover {
     width: 200px;
-    cursor: pointer;
 }

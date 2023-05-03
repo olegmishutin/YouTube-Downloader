@@ -3,32 +3,32 @@ import eel
 import sys
 import subprocess
 from downloader import Downloader
-from tkinterLayer import TkinterLayer
+from tkInterLayer import TkInterLayer
 
 
 @eel.expose
-def GetVideoInfo(src: str):
-    return ytDownloader.GetVideoInfo(src)
+def GetVideoInfo(source: str) -> str:
+    return videoDownloader.GetVideoInfo(source)
 
 
 @eel.expose
-def GetVideoResolutions():
-    return ytDownloader.GetVideoResolutions()
+def GetVideoResolutions() -> list:
+    return videoDownloader.GetVideoResolutions()
 
 
 @eel.expose
-def SelectFolder():
-    return tkLayer.GetPathForDownload()
+def GetPathForDownloading() -> str:
+    return tkInterLayer.GetPathForDownloading()
 
 
 @eel.expose
-def CheckPath(path: str):
-    return True if os.path.isdir(path) else False
+def CheckPath(path: str) -> bool:
+    return os.path.isdir(path)
 
 
 @eel.expose
-def DowloadVideo(src: str, dir: str, res: str):
-    return ytDownloader.DownloadVideo(src, dir, res)
+def DowloadVideo(source: str, path: str, resolution: str) -> str:
+    return videoDownloader.DownloadVideo(source, path, resolution)
 
 
 @eel.expose
@@ -44,9 +44,9 @@ def OpenSavingPath(path: str):
 if __name__=="__main__":
     windowSize=(800, 550)
 
-    tkLayer=TkinterLayer()
-    ytDownloader=Downloader()
+    tkInterLayer=TkInterLayer()
+    videoDownloader=Downloader()
 
     eel.init("Interface")
-    eel.start("index.html", size=windowSize, shutdown_delay=0,
-              position=tkLayer.GetCenterOfMonitor(windowSize))
+    eel.start("index.html", port=0, size=windowSize, shutdown_delay=0,
+              position=tkInterLayer.GetCenterOfMonitor(windowSize))

@@ -13,10 +13,10 @@
 @media (max-width: 625px) {
     .container {
         height: 500px;
-        grid-template-rows: auto calc(40% - 35px) calc(28% - 35px);
+        grid-template-rows: 230px 165px auto;
     }
 
-    .container header {
+    header {
         flex-direction: column;
         justify-content: space-between;
         align-items: center;

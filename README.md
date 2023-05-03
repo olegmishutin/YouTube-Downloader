@@ -1,41 +1,73 @@
-# Youtube Downloader
+# YouTube Downloader
 
-"Youtube Downloader" app is a small program with a simple interface that will help you to download videos from
-youtube. The application was developed in the [Python3.9.16](https://www.python.org/) programming language using the
-following libraries: [eel](https://github.com/python-eel/Eel), [pytube](https://github.com/pytube/pytube),
-[moviepy](https://github.com/Zulko/moviepy). The nice feature of this app is cross-platform, it can be run on
-Windows or Linux without any third party programs.
+YouTube Downloader is a simple app that helps you download videos from YouTube in the highest resolution (up to 8k). The
+app is available for Linux and Windows users. The only thing you need is a browser, without a browser the app will not
+work.
 
 ## Interface
 
-The app interface is very simple. It was written in HTML, CSS and JS. Here is a preview.
-
-![](Interface/Image/interfacePreview.png)
+The interface is fully responsive and intuitive.
+![](Interface/Image/preview.png)
 
 ## Launch
 
-Main branch
-> To run the main app code, download the archive of the **"main"** branch, unzip it, open the folder in the console
-> and run the command `python -m main`. Python must also be installed on your computer with the libraries that are
-> written above.
+*Launch via Python*
 
-Windows branch
-> To run the app on Windows, switch the branch to **"windows"**, download and unzip the archive, open the folder, then
-> run the `main.exe` file.
+1. download the archive of the **main** branch and unzip it.
+3. open unziped folder in the console.
+4. run the command `python main.py`.
 
-Linux branch
-> To run the app on Linux, switch the branch to **"linux"**, download and unzip the archive, then open the folder in the
-> console and run the command `./main`.
+*Launch on Windows*
+
+1. switch the branch to **windows**.
+2. download and unzip the archive.
+3. open unziped folder.
+4. run the `main.exe` file.
+
+*Launch on Linux*
+
+1. switch the branch to **linux**.
+2. download and unzip the archive.
+3. open unziped folder in the console.
+4. run the command `./main`.
 
 ## How to use
 
-To download a video from YouTube (the logo in the app is a link to YouTube) you need to enter the URL link of the video
-and the path to the folder where you want save it. Then click the download button and wait for the download to finish.
+To open YouTube:
+
+1. Click on the app icon.
+
+To download a video from YouTube:
+
+When you first load the video, you will see the message
+**"Please open https://www.google.com/device and input code ..."** in the console, open the link in the browser and
+register the device. Without this, the app will not work properly.
+
+1. enter the URL link of the video and the path to the folder where you want to save it.
+2. click the download button and wait for the download to finish.
 
 The video processing progress is displayed in the console. To stop downloading and processing video you need to close
 the console, but then the app logic will not work. So make sure you want to download a big video before doing that.
 
+## What was used in the development
+
+* [Python3.9.16](https://www.python.org/downloads/release/python-3916/) (Windows version
+  uses [Python3.9.13](https://www.python.org/downloads/release/python-3913/)) and the following libraries:
+    * [Eel](https://github.com/python-eel/Eel) was used to implement the app and communication with the web
+      interface.
+    * [Pytube](https://github.com/pytube/pytube) was used for YouTube video download logic.
+    * [Moviepy](https://github.com/Zulko/moviepy) used to connect video and audio track.
+
+
+* HTML for page markup.
+* CSS for styling.
+* JS for the logic of working with Python.
+
 ## Some info
 
-The **"main"** branch is the main branch, so updates for it will be released earlier. Updates of the remaining branches
-will occur when there are many changes in the main branch.
+At the moment, the app has a major disadvantage - it works in **one thread**. Keep this in mind when using the app.
+
+If you have the dark theme extension enabled in the browser, then the app may have a slightly **different color tint**.
+
+The **main** branch receives updates before all other branches. Updates for the **Linux** and **Windows** branches come
+after a large number of changes in the **main** branch.
