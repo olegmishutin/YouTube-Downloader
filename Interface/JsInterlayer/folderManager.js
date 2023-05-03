@@ -1,10 +1,12 @@
-document.getElementById('openFolder').onclick = SelectFolder
-document.getElementById('openSavingPath').onclick = OpenSavingPath
+document.getElementById("select-folder").onclick = GetPathForDownloading;
+document.getElementById("open-saving-path").onclick = OpenSavingPath;
 
-async function SelectFolder() {
-    document.getElementById("pathTextBox").value = await eel.SelectFolder()();
+const path = document.getElementById("path-input-field");
+
+async function GetPathForDownloading() {
+    path.value = await eel.GetPathForDownloading()();
 }
 
 async function OpenSavingPath() {
-    await eel.OpenSavingPath(document.getElementById("pathTextBox").value)();
+    await eel.OpenSavingPath(path.value)();
 }
