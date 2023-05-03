@@ -56,7 +56,7 @@ the console, but then the app logic will not work. So make sure you want to down
     * [Eel](https://github.com/python-eel/Eel) was used to implement the app and communication with the web
       interface.
     * [Pytube](https://github.com/pytube/pytube) was used for YouTube video download logic.
-    * [Moviepy](https://github.com/Zulko/moviepy) used to connect video and audio track.
+    * [Moviepy](https://github.com/Zulko/moviepy) was used to connect video and audio track.
 
 
 * HTML for page markup.

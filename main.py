@@ -43,6 +43,11 @@ def OpenSavingPath(path: str):
 
 if __name__=="__main__":
     windowSize=(800, 550)
+    pytubeCachePath="pytube"
+
+    if not os.path.isdir(pytubeCachePath):
+        os.mkdir(pytubeCachePath)
+        os.mkdir(f"{pytubeCachePath}/__cache__")
 
     tkInterLayer=TkInterLayer()
     videoDownloader=Downloader()
