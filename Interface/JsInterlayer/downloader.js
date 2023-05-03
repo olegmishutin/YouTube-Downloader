@@ -1,19 +1,55 @@
-document.getElementById('downloadButton').onclick = StartDownload
-document.getElementById('urlTextBox').oninput = ViewVideoInfo
+const urlInputField = document.getElementById("url-input-field");
+const pathInputField = document.getElementById("path-input-field");
+const status = document.getElementById("status");
+const resolutions = document.getElementById("resolutions");
+const availableResolutions = document.getElementById("available-resolutions");
+const selectedResolution = document.getElementById("selected-resolution");
 
-let url = document.getElementById("urlTextBox");
-let path = document.getElementById("pathTextBox");
-let status = document.getElementById("status");
+document.getElementById("download-video").onclick = DowloadVideo;
+urlInputField.oninput = GetFullVideoInfo;
 
-async function ViewVideoInfo() {
-    status.innerHTML = await eel.GetVideoInfo(url.value)();
+function ChangeSelectedResolution() {
+    selectedResolution.innerHTML = this.innerHTML;
+    resolutions.removeAttribute("open");
 }
 
-async function StartDownload() {
-    let isPath = await eel.CheckPath(path.value)();
+async function GetFullVideoInfo() {
+    selectedResolution.innerHTML = "Load";
+    status.innerHTML = await eel.GetVideoInfo(urlInputField.value)();
+    const videoResolutions = await eel.GetVideoResolutions()();
+
+    for (let i = 0; availableResolutions.childNodes.length > 0; i++) {
+        const liElement = document.getElementById(`res-li-${i}`);
+        liElement.parentNode.removeChild(liElement);
+    }
+
+    if (videoResolutions.length === 0) {
+        resolutions.removeAttribute("open")
+        selectedResolution.innerHTML = "";
+    } else {
+        videoResolutions.forEach(function (item, index) {
+            const liElement = document.createElement("li");
+            liElement.id = `res-li-${index}`;
+
+            const buttonElement = document.createElement("button");
+            buttonElement.id = `res-button-${index}`;
+            buttonElement.innerHTML = item;
+            buttonElement.onclick = ChangeSelectedResolution;
+
+            liElement.append(buttonElement);
+            availableResolutions.append(liElement);
+        })
+        selectedResolution.innerHTML = videoResolutions[0];
+    }
+}
+
+async function DowloadVideo() {
+    const isPath = await eel.CheckPath(pathInputField.value)();
 
     if (isPath) {
         status.innerHTML = "Downloading...";
-        status.innerHTML = await eel.DowloadVideo(url.value, path.value)();
+        status.innerHTML = await eel.DowloadVideo(urlInputField.value, pathInputField.value, selectedResolution.innerHTML)();
+    } else {
+        status.innerHTML = "The entered path does not exist";
     }
 }

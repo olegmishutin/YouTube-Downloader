@@ -1,23 +1,24 @@
-@media (max-height: 499px) {
+@media (max-height: 459px) {
     body {
         align-items: flex-start;
     }
 }
 
-@media (max-height: 570px) and (max-width: 675px) {
+@media (max-height: 540px) and (max-width: 625px) {
     body {
         align-items: flex-start;
     }
 }
 
-@media (max-width: 675px) {
+@media (max-width: 625px) {
     .container {
-        height: 530px;
-        grid-template-rows: auto calc(40% - 35px) calc(25% - 35px);
+        height: 500px;
+        grid-template-rows: 230px 165px auto;
     }
 
-    .container header {
+    header {
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: space-between;
+        align-items: center;
     }
 }

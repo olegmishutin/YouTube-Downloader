@@ -1,39 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>YouTube Downloader</title>
     <meta charset="UTF-8">
-    <title>Youtube Downloader</title>
-    <script type="text/javascript" src="/eel.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google" content="notranslate">
     <link rel="icon" href="Image/pngIcon.png">
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/adaptive.css">
+    <script type="text/javascript" src="/eel.js"></script>
 </head>
 <body>
 <div class="container">
     <header>
-        <div class="logo">
-            <a href="https://www.youtube.com/" target="_blank"></a>
-        </div>
-        <div class="app-name">
-            <h1>Youtube Downloader</h1>
-        </div>
+        <a class="logo" href="https://www.youtube.com/" target="_blank">
+            <img src="Image/partOfLogo.png" alt="part of logo"></a>
+        <h1 class="app-name">YouTube Downloader</h1>
     </header>
     <main>
-        <div class="video-box">
-            <input type="text" class="url text-box" id="urlTextBox" placeholder="Video url" autocomplete="off">
+        <div class="input-field">
+            <input type="text" class="text-box" id="url-input-field" placeholder="Video url" autocomplete="off">
+            <details class="selection resolutions" id="resolutions">
+                <summary>
+                    <img src="Image/monitorIcon.png" alt="monitor icon">
+                    <span class="selected-resolution" id="selected-resolution"></span>
+                </summary>
+                <ul class="available-resolutions" id="available-resolutions"></ul>
+            </details>
         </div>
-        <div class="folder-box">
-            <input type="text" class="path text-box" id="pathTextBox" placeholder="Path for saving" autocomplete="off">
-            <button class="open-folder" id="openFolder"><img src="Image/folderIcon.png" alt="folder"></button>
+        <div class="input-field">
+            <input type="text" class="text-box" id="path-input-field" placeholder="Path for saving" autocomplete="off">
+            <button class="selection" id="select-folder">
+                <img src="Image/folderIcon.png" alt="folder icon"></button>
         </div>
     </main>
     <footer>
         <p class="status" id="status"></p>
-        <div class="footer-buttons">
-            <button id="downloadButton">Download</button>
-            <button id="openSavingPath">Saving path</button>
+        <div class="footer-buttons-box">
+            <button id="download-video">Download</button>
+            <button id="open-saving-path">Saving path</button>
         </div>
     </footer>
     <script src="JsInterlayer/folderManager.js"></script>

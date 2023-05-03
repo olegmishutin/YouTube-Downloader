@@ -1,4 +1,10 @@
-# Youtube Downloader for Linux
+# YouTube Downloader for Linux
 
-More info in the main branch. Download and unzip the archive, then open the folder in the console and run the
-command `./main`.
+*Launch on Linux*
+
+1. switch the branch to **linux**.
+2. download and unzip the archive.
+3. open unziped folder in the console.
+4. run the command `./main`.
+
+More info in the main branch.
