@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google" content="notranslate">
-    <link rel="icon" href="Image/pngIcon.png">
+    <link rel="icon" href="Image/Icon.ico">
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/adaptive.css">
     <script type="text/javascript" src="/eel.js"></script>
@@ -15,7 +15,10 @@
     <header>
         <a class="logo" href="https://www.youtube.com/" target="_blank">
             <img src="Image/partOfLogo.png" alt="part of logo"></a>
-        <h1 class="app-name">YouTube Downloader</h1>
+        <div class="app-name">
+            <h1>YouTube Downloader</h1>
+            <button class="theme-switcher" id="theme-switcher"></button>
+        </div>
     </header>
     <main>
         <div class="input-field">
@@ -41,6 +44,7 @@
             <button id="open-saving-path">Saving path</button>
         </div>
     </footer>
+    <script src="JsInterlayer/themeManager.js"></script>
     <script src="JsInterlayer/folderManager.js"></script>
     <script src="JsInterlayer/downloader.js"></script>
 </div>

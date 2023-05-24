@@ -5,6 +5,13 @@ import subprocess
 from downloader import Downloader
 from tkInterLayer import TkInterLayer
 
+@eel.expose
+def DataThemeSetting(mode: str, theme: str) -> str:
+    with open(dataThemeFile, mode) as file:
+        if mode=="r":
+            return file.read()
+        file.write(theme)
+
 
 @eel.expose
 def GetVideoInfo(source: str) -> str:
@@ -43,11 +50,19 @@ def OpenSavingPath(path: str):
 
 if __name__=="__main__":
     windowSize=(800, 550)
-    pytubeCachePath="pytube"
+    dataThemeFile="dataTheme.txt"
 
-    if not os.path.isdir(pytubeCachePath):
-        os.mkdir(pytubeCachePath)
-        os.mkdir(f"{pytubeCachePath}/__cache__")
+    pytubeLocalPath="pytube"
+    pytubeLocalCachePath=f"{pytubeLocalPath}/__cache__"
+
+    if not os.path.isfile(dataThemeFile):
+        DataThemeSetting('w', "dark")
+
+    if not os.path.isdir(pytubeLocalPath):
+        os.mkdir(pytubeLocalPath)
+
+    if not os.path.isdir(pytubeLocalCachePath):
+        os.mkdir(pytubeLocalCachePath)
 
     tkInterLayer=TkInterLayer()
     videoDownloader=Downloader()

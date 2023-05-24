@@ -6,8 +6,9 @@ work.
 
 ## Interface
 
-The interface is fully responsive and intuitive.
-![](Interface/Image/preview.png)
+The interface is fully responsive, intuitive and supports light and dark theme.
+![](Interface/Image/darkPreview.png)
+![](Interface/Image/lightPreview.png)
 
 ## Launch
 
@@ -48,6 +49,8 @@ register the device. Without this, the app will not work properly.
 
 The video processing progress is displayed in the console. To stop downloading and processing video you need to close
 the console, but then the app logic will not work. So make sure you want to download a big video before doing that.
+
+To change theme color, click on the little button next to the app name.
 
 ## What was used in the development
 
