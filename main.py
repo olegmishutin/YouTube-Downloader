@@ -5,6 +5,7 @@ import subprocess
 from downloader import Downloader
 from tkInterLayer import TkInterLayer
 
+
 @eel.expose
 def DataThemeSetting(mode: str, theme: str) -> str:
     with open(dataThemeFile, mode) as file:
