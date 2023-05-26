@@ -19,7 +19,7 @@ async function GetFullVideoInfo() {
     const videoResolutions = await eel.GetVideoResolutions()();
 
     for (let i = 0; availableResolutions.childNodes.length > 0; i++) {
-        const liElement = document.getElementById(`res-li-${i}`);
+        const liElement = document.getElementById(`resolution-li-${i}`);
         liElement.parentNode.removeChild(liElement);
     }
 
@@ -29,10 +29,9 @@ async function GetFullVideoInfo() {
     } else {
         videoResolutions.forEach(function (item, index) {
             const liElement = document.createElement("li");
-            liElement.id = `res-li-${index}`;
+            liElement.id = `resolution-li-${index}`;
 
             const buttonElement = document.createElement("button");
-            buttonElement.id = `res-button-${index}`;
             buttonElement.innerHTML = item;
             buttonElement.onclick = ChangeSelectedResolution;
 
@@ -44,12 +43,10 @@ async function GetFullVideoInfo() {
 }
 
 async function DowloadVideo() {
-    const isPath = await eel.CheckPath(pathInputField.value)();
-
-    if (isPath) {
+    if (await eel.CheckPath(pathInputField.value)()) {
         status.innerHTML = "Downloading...";
         status.innerHTML = await eel.DowloadVideo(urlInputField.value, pathInputField.value, selectedResolution.innerHTML)();
     } else {
-        status.innerHTML = "The entered path does not exist";
+        pathInputField.value = "Path not found";
     }
 }
