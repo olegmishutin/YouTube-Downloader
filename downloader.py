@@ -1,18 +1,20 @@
 import os
-import shutil
 from pytube import YouTube
 from moviepy.editor import VideoFileClip, AudioFileClip, CompositeAudioClip
 
 
 class Downloader():
     def __init__(self):
-        self.__cache="cache"
         self.__video=None
-        self.__resolutionsCodecs={"4320p": [138, 402, 571], "2160p": [266, 305, 401, 701],
-                                  "1440p": [264, 304, 400, 700], "1080p": [137, 299, 399, 699],
-                                  "720p": [136, 298, 398, 698], "480p": [135, 397, 697],
-                                  "360p": [134, 396, 696], "240p": [133, 395, 695],
-                                  "144p": [160, 394, 694]}
+        self.__cacheFiles=["videoCache.mp4", "audioCache.mp3"]
+        self.__codecs={"2160p": [266, 305, 313, 315, 337, 401, 701],
+                       "1440p": [264, 271, 308, 336, 304, 400, 700],
+                       "1080p": [137, 248, 299, 303, 335, 399, 699],
+                       "720p": [136, 247, 298, 302, 334, 398, 698],
+                       "480p": [135, 244, 333, 397, 697],
+                       "360p": [134, 243, 332, 396, 696],
+                       "240p": [133, 242, 331, 395, 695],
+                       "144p": [160, 278, 330, 394, 694]}
 
     def GetVideoInfo(self, source: str) -> str:
         try:
@@ -25,53 +27,44 @@ class Downloader():
             return "Incorrect link or server error" if source else ""
 
     def GetVideoItag(self, resolution: str):
-        return self.__video.streams.filter(file_extension='mp4', progressive=False, res=resolution).itag_index.keys()
+        return self.__video.streams.filter(progressive=False, res=resolution).itag_index.keys()
 
     def GetVideoResolutions(self) -> list:
         availableRes=[]
 
         if self.__video:
-            for resolution in self.__resolutionsCodecs:
-                for codec in self.__resolutionsCodecs.get(resolution):
-                    if (codec in self.GetVideoItag(resolution)) and (resolution not in availableRes):
+            for resolution in self.__codecs:
+                for codec in self.__codecs.get(resolution):
+                    if codec in self.GetVideoItag(resolution):
                         availableRes.append(resolution)
+                        break
 
         return availableRes
 
     def GetVideoCodec(self, resolution) -> list:
         return list(self.GetVideoItag(resolution))[0]
 
-    def GetVideoName(self) -> str:
-        file=os.path.basename(os.listdir(self.__cache)[0])
-        fileName=os.path.splitext(file)[0]
-
-        return fileName
-
-    def CombineAudioVideoFiles(self, filename: str, pathToCombine: str):
-        videoClip=VideoFileClip(f"{self.__cache}/{filename}.mp4")
-        audioClip=AudioFileClip(f"{self.__cache}/{filename}.webm")
+    def CombineAudioVideoFiles(self, pathToCombine: str):
+        videoClip, audioClip=VideoFileClip(self.__cacheFiles[0]), AudioFileClip(self.__cacheFiles[1])
 
         videoClip.audio=CompositeAudioClip([audioClip])
-        videoClip.write_videofile(f"{pathToCombine}/{filename}.mp4", temp_audiofile=f"{self.__cache}/Cache.mp3")
+        videoClip.write_videofile(f"{pathToCombine}/{self.__video.title}.mp4", temp_audiofile="tempAudioFile.mp3")
 
     def DownloadVideo(self, source: str, pathForSaving: str, resolution: str) -> str:
         if self.__video:
-            if os.path.isdir(self.__cache) and os.listdir(self.__cache):
-                shutil.rmtree(self.__cache)
-
-            os.mkdir(self.__cache)
             try:
                 mp4Downloader=self.__video.streams.get_by_itag(self.GetVideoCodec(resolution))
-                mp4Downloader.download(output_path=self.__cache)
+                mp4Downloader.download(filename=self.__cacheFiles[0])
 
                 mp3Downloader=self.__video.streams.get_by_itag(251)
-                mp3Downloader.download(output_path=self.__cache)
+                mp3Downloader.download(filename=self.__cacheFiles[1])
 
-                self.CombineAudioVideoFiles(self.GetVideoName(), pathForSaving)
+                self.CombineAudioVideoFiles(pathForSaving)
             except Exception:
                 return "Server error, try again"
             finally:
-                shutil.rmtree(self.__cache)
+                for cacheFile in self.__cacheFiles:
+                    os.remove(f"{os.getcwd()}/{cacheFile}")
 
             return f"Video downloaded in {pathForSaving}"
         return "Incorrect link or server error"

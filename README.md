@@ -1,6 +1,6 @@
 # YouTube Downloader
 
-YouTube Downloader is a simple app that helps you download videos from YouTube in the highest resolution (up to 8k). The
+YouTube Downloader is a simple app that helps you download videos from YouTube in the highest resolution (up to 4k). The
 app is available for Linux and Windows users. The only thing you need is a browser, without a browser the app will not
 work.
 
@@ -67,6 +67,8 @@ To change theme color, click on the little button next to the app name.
 * JS for the logic of working with Python.
 
 ## Some info
+
+Some videos cannot be downloaded in such a high format as presented on YouTube, it depends on the video.
 
 At the moment, the app has a major disadvantage - it works in **one thread**. Keep this in mind when using the app.
 
