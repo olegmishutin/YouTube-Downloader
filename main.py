@@ -45,8 +45,7 @@ def OpenSavingPath(path: str):
         if sys.platform=="win32":
             os.startfile(path)
         else:
-            opener="open" if sys.platform=="darwin" else "xdg-open"
-            subprocess.call([opener, path])
+            subprocess.call(["open" if sys.platform=="darwin" else "xdg-open", path])
 
 
 if __name__=="__main__":
@@ -67,6 +66,9 @@ if __name__=="__main__":
 
     tkInterLayer=TkInterLayer()
     videoDownloader=Downloader()
+
+    if sys.platform=="win32":
+        tkInterLayer.iconbitmap("Interface/Image/Icon.ico")
 
     eel.init("Interface")
     eel.start("index.html", port=0, size=windowSize, shutdown_delay=0,

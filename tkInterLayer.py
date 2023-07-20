@@ -1,4 +1,3 @@
-import sys
 from tkinter import *
 from tkinter import filedialog
 
@@ -8,15 +7,9 @@ class TkInterLayer(Tk):
         super().__init__()
         self.withdraw()
 
-        if sys.platform=="win32":
-            self.iconbitmap("Interface/Image/Icon.ico")
-
     def GetPathForDownloading(self) -> str:
         selectedPath=filedialog.askdirectory(title="Select path for saving", initialdir="/")
         return selectedPath if selectedPath else ""
 
     def GetCenterOfMonitor(self, windowSize: tuple) -> tuple:
-        centerX=self.winfo_screenwidth() / 2 - windowSize[0] / 2
-        centerY=self.winfo_screenheight() / 2 - windowSize[1] / 2
-
-        return (centerX, centerY)
+        return (self.winfo_screenwidth() / 2 - windowSize[0] / 2, self.winfo_screenheight() / 2 - windowSize[1] / 2)
