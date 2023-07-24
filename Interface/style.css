@@ -60,7 +60,7 @@ details:hover {
 }
 
 body {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,7 +71,7 @@ body {
 
 .container {
     width: 100%;
-    height: 420px;
+    min-height: 420px;
     max-width: 800px;
     padding: 20px;
     display: grid;
@@ -230,14 +230,18 @@ main {
 }
 
 footer {
+    min-height: 105px;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: auto 52px;
+    grid-template-rows: auto auto;
     padding: 0 55px 0 55px;
 }
 
 .status {
-    align-self: center;
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     font-size: 85%;
     padding-bottom: 12px;
@@ -247,12 +251,14 @@ footer {
 .footer-buttons-box {
     display: inline-flex;
     justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
     gap: 15px;
 }
 
 .footer-buttons-box button {
     width: 175px;
-    height: 100%;
+    height: 55px;
     min-width: 110px;
     font-size: 105%;
     border-radius: 15px;
@@ -261,4 +267,28 @@ footer {
 
 .footer-buttons-box button:hover {
     width: 192px;
+}
+
+@media (max-height: 459px) {
+    body {
+        align-items: flex-start;
+    }
+}
+
+@media (max-height: 540px) and (max-width: 625px) {
+    body {
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 625px) {
+    .container {
+        grid-template-rows: 230px 165px auto;
+    }
+
+    header {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
 }

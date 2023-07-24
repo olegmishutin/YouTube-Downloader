@@ -22,9 +22,7 @@ class Downloader():
 
             for invalidCharacter in ("\\", "/", ":", "*", "?", '"', "<", ">", "|"):
                 self.__video.title=self.__video.title.replace(invalidCharacter, " ")
-
-            while "  " in self.__video.title:
-                self.__video.title=self.__video.title.replace("  ", " ")
+            self.__video.title=" ".join(self.__video.title.split())
 
             return f"Author: {self.__video.author}; Title: {self.__video.title}"
         except Exception:
