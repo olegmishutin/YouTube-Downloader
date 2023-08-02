@@ -7,7 +7,7 @@ from tkInterLayer import TkInterLayer
 
 
 @eel.expose
-def DataThemeSetting(mode: str, theme: str) -> str:
+def DataThemeSetting(mode: str, theme: str) -> str | None:
     with open(dataThemeFile, mode) as file:
         if mode=="r":
             return file.read()
@@ -40,12 +40,17 @@ def DowloadVideo(source: str, path: str, resolution: str) -> str:
 
 
 @eel.expose
-def OpenSavingPath(path: str):
-    if os.path.isdir(path):
+def OpenSavingPath(path: str) -> None:
+    if os.path.isdir(path) or os.path.isfile(path):
         if sys.platform=="win32":
             os.startfile(path)
         else:
             subprocess.call(["open" if sys.platform=="darwin" else "xdg-open", path])
+
+
+@eel.expose
+def StartVideoFile() -> None:
+    OpenSavingPath(videoDownloader.videoPath)
 
 
 if __name__=="__main__":

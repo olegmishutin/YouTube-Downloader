@@ -47,6 +47,10 @@ register the device. Without this, the app will not work properly.
 1. enter the URL link of the video and the path to the folder where you want to save it.
 2. click the download button and wait for the download to finish.
 
+To play the downloaded video:
+
+1. Click on the "Start video" button.
+
 To change theme color:
 
 1. Click on the small button next to the app's name.

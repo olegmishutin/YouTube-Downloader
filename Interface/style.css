@@ -231,24 +231,22 @@ main {
 
 footer {
     min-height: 105px;
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: auto auto;
     padding: 0 55px 0 55px;
 }
 
 .status {
-    min-height: 50px;
+    min-height: 38px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     font-size: 85%;
-    padding-bottom: 12px;
+    margin-bottom: 12px;
     transition-duration: var(--transition-duration);
 }
 
 .footer-buttons-box {
+    width: 100%;
     display: inline-flex;
     justify-content: center;
     align-items: flex-end;
@@ -257,7 +255,7 @@ footer {
 }
 
 .footer-buttons-box button {
-    width: 175px;
+    width: 140px;
     height: 55px;
     min-width: 110px;
     font-size: 105%;
@@ -266,7 +264,7 @@ footer {
 }
 
 .footer-buttons-box button:hover {
-    width: 192px;
+    width: 160px;
 }
 
 @media (max-height: 459px) {
