@@ -8,7 +8,7 @@ class TkInterLayer(Tk):
         self.withdraw()
 
     def GetPathForDownloading(self) -> str:
-        selectedPath=filedialog.askdirectory(title="Select path for saving", initialdir="/")
+        selectedPath = filedialog.askdirectory(title="Select path for saving", initialdir="/")
         return selectedPath if selectedPath else ""
 
     def GetCenterOfMonitor(self, windowSize: tuple) -> tuple:

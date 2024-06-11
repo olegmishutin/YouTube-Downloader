@@ -9,7 +9,7 @@ from tkInterLayer import TkInterLayer
 @eel.expose
 def DataThemeSetting(mode: str, theme: str) -> str | None:
     with open(dataThemeFile, mode) as file:
-        if mode=="r":
+        if mode == "r":
             return file.read()
         file.write(theme)
 
@@ -42,10 +42,10 @@ def DowloadVideo(source: str, path: str, resolution: str) -> str:
 @eel.expose
 def OpenSavingPath(path: str) -> None:
     if os.path.isdir(path) or os.path.isfile(path):
-        if sys.platform=="win32":
+        if sys.platform == "win32":
             os.startfile(path)
         else:
-            subprocess.call(["open" if sys.platform=="darwin" else "xdg-open", path])
+            subprocess.call(["open" if sys.platform == "darwin" else "xdg-open", path])
 
 
 @eel.expose
@@ -53,12 +53,12 @@ def StartVideoFile() -> None:
     OpenSavingPath(videoDownloader.videoPath)
 
 
-if __name__=="__main__":
-    windowSize=(800, 550)
-    dataThemeFile="dataTheme.txt"
+if __name__ == "__main__":
+    windowSize = (800, 550)
+    dataThemeFile = "dataTheme.txt"
 
-    pytubeLocalPath="pytube"
-    pytubeLocalCachePath=f"{pytubeLocalPath}/__cache__"
+    pytubeLocalPath = "pytube"
+    pytubeLocalCachePath = f"{pytubeLocalPath}/__cache__"
 
     if not os.path.isfile(dataThemeFile):
         DataThemeSetting('w', "dark")
@@ -69,10 +69,10 @@ if __name__=="__main__":
     if not os.path.isdir(pytubeLocalCachePath):
         os.mkdir(pytubeLocalCachePath)
 
-    tkInterLayer=TkInterLayer()
-    videoDownloader=Downloader()
+    tkInterLayer = TkInterLayer()
+    videoDownloader = Downloader()
 
-    if sys.platform=="win32":
+    if sys.platform == "win32":
         tkInterLayer.iconbitmap("Interface/Image/Icon.ico")
 
     eel.init("Interface")
