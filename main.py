@@ -1,17 +1,23 @@
+import json
 import os
-import eel
-import sys
 import subprocess
+import sys
+
+import eel
+
 from downloader import Downloader
 from tkInterLayer import TkInterLayer
 
 
 @eel.expose
 def DataThemeSetting(mode: str, theme: str) -> str | None:
-    with open(dataThemeFile, mode) as file:
-        if mode == "r":
-            return file.read()
-        file.write(theme)
+    if mode == 'r':
+        return settings['theme']
+    
+    settings['theme'] = theme
+    
+    with open(settingFile, 'w') as file:
+        json.dump(settings, file)
 
 
 @eel.expose
@@ -35,7 +41,7 @@ def CheckPath(path: str) -> bool:
 
 
 @eel.expose
-def DowloadVideo(source: str, path: str, resolution: str) -> str:
+def DownloadVideo(source: str, path: str, resolution: str) -> str:
     return videoDownloader.DownloadVideo(source, path, resolution)
 
 
@@ -55,13 +61,19 @@ def StartVideoFile() -> None:
 
 if __name__ == "__main__":
     windowSize = (800, 550)
-    dataThemeFile = "dataTheme.txt"
+    
+    settings = {'theme': 'dark'}
+    settingFile = "settings.json"
 
     pytubeLocalPath = "pytube"
     pytubeLocalCachePath = f"{pytubeLocalPath}/__cache__"
 
-    if not os.path.isfile(dataThemeFile):
-        DataThemeSetting('w', "dark")
+    if os.path.isfile(settingFile):
+        with open(settingFile, 'r') as file:
+            settings = json.load(file)
+    else:
+        with open(settingFile, 'w') as file:
+            json.dump(settings, file)
 
     if not os.path.isdir(pytubeLocalPath):
         os.mkdir(pytubeLocalPath)
@@ -76,5 +88,10 @@ if __name__ == "__main__":
         tkInterLayer.iconbitmap("Interface/Image/Icon.ico")
 
     eel.init("Interface")
-    eel.start("index.html", port=0, size=windowSize, shutdown_delay=0,
-              position=tkInterLayer.GetCenterOfMonitor(windowSize))
+    eel.start(
+        "index.html",
+        port=0,
+        size=windowSize,
+        shutdown_delay=0,
+        position=tkInterLayer.GetCenterOfMonitor(windowSize),
+    )

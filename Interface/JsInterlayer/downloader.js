@@ -5,7 +5,7 @@ const resolutions = document.getElementById("resolutions");
 const availableResolutions = document.getElementById("available-resolutions");
 const selectedResolution = document.getElementById("selected-resolution");
 
-document.getElementById("download-video").onclick = DowloadVideo;
+document.getElementById("download-video").onclick = DownloadVideo;
 urlInputField.oninput = GetFullVideoInfo;
 
 function ChangeSelectedResolution() {
@@ -42,10 +42,10 @@ async function GetFullVideoInfo() {
     }
 }
 
-async function DowloadVideo() {
+async function DownloadVideo() {
     if (await eel.CheckPath(pathInputField.value)()) {
         status.innerHTML = "Downloading...";
-        status.innerHTML = await eel.DowloadVideo(urlInputField.value, pathInputField.value, selectedResolution.innerHTML)();
+        status.innerHTML = await eel.DownloadVideo(urlInputField.value, pathInputField.value, selectedResolution.innerHTML)();
     } else {
         pathInputField.value = "Path not found";
     }

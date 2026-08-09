@@ -12,11 +12,11 @@ html[data-theme-setting="dark"] {
 }
 
 html[data-theme-setting="light"] {
-    --main-background-color: #b9b9b9;
-    --main-foreground-color: #333333;
-    --text-box-background-color: #939393;
-    --text-box-placeholder-color: #595959;
-    --degree-of-inversion: 0.2;
+    --main-background-color: #f4f4f4;
+    --main-foreground-color: #1f1f1f;
+    --text-box-background-color: #c0c0c0;
+    --text-box-placeholder-color: #636363;
+    --degree-of-inversion: 0.1;
 }
 
 * {
