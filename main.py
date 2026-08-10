@@ -10,12 +10,12 @@ from tkInterLayer import TkInterLayer
 
 
 @eel.expose
-def DataThemeSetting(mode: str, theme: str) -> str | None:
+def Settings(settings_param: str, mode: str, data='') -> str | None:
     if mode == 'r':
-        return settings['theme']
+        return settings[settings_param]
     
-    settings['theme'] = theme
-    
+    settings[settings_param] = data
+
     with open(settingFile, 'w') as file:
         json.dump(settings, file)
 
@@ -37,7 +37,7 @@ def GetPathForDownloading() -> str:
 
 @eel.expose
 def CheckPath(path: str) -> bool:
-    return os.path.isdir(path)
+    return os.path.exists(path)
 
 
 @eel.expose
@@ -62,7 +62,7 @@ def StartVideoFile() -> None:
 if __name__ == "__main__":
     windowSize = (800, 550)
     
-    settings = {'theme': 'dark'}
+    settings = {'theme': 'dark', 'save_path': ''}
     settingFile = "settings.json"
 
     pytubeLocalPath = "pytube"

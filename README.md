@@ -1,7 +1,6 @@
 # YouTube Downloader
 
-YouTube Downloader is a simple app that helps you download videos from YouTube in the highest resolution (up to 4k). The
-app is available for Linux and Windows users. The only thing you need is a browser, without a browser the app will not
+YouTube Downloader is a simple app that helps you download videos from YouTube in the highest resolution (up to 4k). The only thing you need is a browser, without a browser the app will not
 work.
 
 ## Interface
@@ -12,25 +11,12 @@ The interface is fully responsive, intuitive and supports light and dark theme.
 
 ## Launch
 
-*Launch via Python*
+*Launch via [Python](https://www.python.org/)*
 
 1. download the archive of the **main** branch and unzip it.
-3. open unziped folder in the console.
+2. open unziped folder in the console.
+3. download packages from requirements.txt `pip install -r requirements.txt`
 4. run the command `python main.py`.
-
-*Launch on Windows*
-
-1. switch the branch to **windows**.
-2. download and unzip the archive.
-3. open unziped folder.
-4. run the `main.exe` file.
-
-*Launch on Linux*
-
-1. switch the branch to **linux**.
-2. download and unzip the archive.
-3. open unziped folder in the console.
-4. run the command `./main`.
 
 ## How to use
 
@@ -71,16 +57,13 @@ At the moment, the app has a major disadvantage - it works in **one thread**. Ke
 
 If you have the dark theme extension enabled in the browser, then the app may have a slightly **different color tint**.
 
-The **main** branch receives updates before all other branches. Updates for the **Linux** and **Windows** branches come
-after a large number of changes in the **main** branch.
-
 ## What was used in the development
 
 * [Python3.10.12](https://www.python.org/downloads/release/python-31012/) (Windows version
   uses [Python3.10.11](https://www.python.org/downloads/release/python-31011/)) and the following libraries:
     * [Eel](https://github.com/python-eel/Eel) was used to implement the app and communication with the web
       interface.
-    * [Pytube](https://github.com/pytube/pytube) was used for YouTube video download logic.
+    * [Pytubefix](https://pypi.org/project/pytubefix/) was used for YouTube video download logic.
     * [Moviepy](https://github.com/Zulko/moviepy) was used to connect video and audio track.
 
 

@@ -4,11 +4,11 @@ document.getElementById("theme-switcher").onclick = CheckForSwitching;
 
 async function ChangeDataThemeAttribute(theme) {
     documentElement.setAttribute(themeAttributeName, theme);
-    await eel.DataThemeSetting("w", theme)();
+    await eel.Settings("theme", "w", theme)();
 }
 
 async function CheckDataThemeSetting() {
-    ChangeDataThemeAttribute(await eel.DataThemeSetting("r", "")());
+    ChangeDataThemeAttribute(await eel.Settings("theme", "r")());
 }
 
 function CheckForSwitching() {

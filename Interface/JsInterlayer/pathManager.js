@@ -6,6 +6,15 @@ async function GetPathForDownloading() {
 
     if (selectedPath) {
         path.value = selectedPath;
+        eel.Settings("save_path", "w", selectedPath)
+    }
+}
+
+async function GetSavePath() {
+    const savedPath = await eel.Settings("save_path", "r")()
+
+    if (await eel.CheckPath(savedPath)()){
+        path.value = savedPath
     }
 }
 
@@ -15,3 +24,5 @@ document.getElementById("open-saving-path").onclick = async function () {
 document.getElementById("start-video").onclick = async function () {
     await eel.StartVideoFile()();
 }
+
+GetSavePath()
