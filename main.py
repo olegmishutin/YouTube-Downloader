@@ -10,13 +10,13 @@ from tkInterLayer import TkInterLayer
 
 
 @eel.expose
-def Settings(settings_param: str, mode: str, data='') -> str | None:
-    if mode == 'r':
+def Settings(settings_param: str, mode: str, data="") -> str | None:
+    if mode == "r":
         return settings[settings_param]
-    
+
     settings[settings_param] = data
 
-    with open(settingFile, 'w') as file:
+    with open(settingFile, "w") as file:
         json.dump(settings, file)
 
 
@@ -32,47 +32,45 @@ def GetVideoResolutions() -> list:
 
 @eel.expose
 def GetPathForDownloading() -> str:
-    return tkInterLayer.GetPathForDownloading()
+    path = tkInterLayer.GetPathForDownloading()
+
+    if os.path.exists(path):
+        return path
+    return ''
 
 
 @eel.expose
-def CheckPath(path: str) -> bool:
-    return os.path.exists(path)
+def DownloadVideo(source: str, resolution: str) -> str:
+    if os.path.exists(settings["videos_folder"]):
+        return videoDownloader.DownloadVideo(
+            source, settings["videos_folder"], resolution
+        )
+    return "Path for videos not set or does not exist"
 
 
 @eel.expose
-def DownloadVideo(source: str, path: str, resolution: str) -> str:
-    return videoDownloader.DownloadVideo(source, path, resolution)
-
-
-@eel.expose
-def OpenSavingPath(path: str) -> None:
-    if os.path.isdir(path) or os.path.isfile(path):
+def OpenVideosFolder() -> None:
+    if os.path.exists(settings["videos_folder"]):
         if sys.platform == "win32":
-            os.startfile(path)
+            os.startfile(settings["videos_folder"])
         else:
-            subprocess.call(["open" if sys.platform == "darwin" else "xdg-open", path])
-
-
-@eel.expose
-def StartVideoFile() -> None:
-    OpenSavingPath(videoDownloader.videoPath)
+            subprocess.call(["open" if sys.platform == "darwin" else "xdg-open", settings["videos_folder"]])
 
 
 if __name__ == "__main__":
     windowSize = (800, 550)
-    
-    settings = {'theme': 'dark', 'save_path': ''}
+
+    settings = {"theme": "dark", "videos_folder": ""}
     settingFile = "settings.json"
 
     pytubeLocalPath = "pytube"
     pytubeLocalCachePath = f"{pytubeLocalPath}/__cache__"
 
     if os.path.isfile(settingFile):
-        with open(settingFile, 'r') as file:
+        with open(settingFile, "r") as file:
             settings = json.load(file)
     else:
-        with open(settingFile, 'w') as file:
+        with open(settingFile, "w") as file:
             json.dump(settings, file)
 
     if not os.path.isdir(pytubeLocalPath):

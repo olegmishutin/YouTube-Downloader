@@ -16,7 +16,7 @@
             <img src="Image/partOfLogo.png" alt="part of logo"></a>
         <div class="app-name">
             <h1>YouTube Downloader</h1>
-            <button class="theme-switcher" id="theme-switcher"></button>
+            <button class="settings-button" id="open-settings-button"></button>
         </div>
     </header>
     <main>
@@ -30,22 +30,38 @@
                 <ul class="available-resolutions" id="available-resolutions"></ul>
             </details>
         </div>
-        <div class="input-field">
-            <input type="text" class="text-box" id="path-input-field" placeholder="Path for saving" autocomplete="off">
-            <button class="selection" id="select-path">
-                <img src="Image/folderIcon.png" alt="folder icon"></button>
-        </div>
     </main>
     <footer>
         <p class="status" id="status"></p>
         <div class="footer-buttons-box">
             <button id="download-video">Download</button>
-            <button id="open-saving-path">Saving path</button>
-            <button id="start-video">Start video</button>
+            <button onclick="eel.OpenVideosFolder()">Videos folder</button>
         </div>
     </footer>
-    <script src="JsInterlayer/themeManager.js"></script>
-    <script src="JsInterlayer/pathManager.js"></script>
+</div>
+<div class="settings" id="settings">
+    <div class="settings__modal">
+        <div class="settings__modal__header">
+            <h2>Settings</h2>
+            <button class="settings-button" id="close-settings-button"></button>
+        </div>
+        <div class="settings__modal__content">
+            <div class="input-field">
+                <input type="text" class="text-box" id="videos-folder" placeholder="Videos folder" autocomplete="off">
+                <button class="selection" id="select-folder">
+                    <img src="Image/folderIcon.png" alt="folder icon"></button>
+            </div>
+            <div class="theme__selector">
+                <span class="theme__selector__label">Theme</span>
+                <div class="theme__selector__track" id="theme-selector" role="group" aria-label="Theme">
+                    <span class="theme__selector__thumb"></span>
+                    <button class="theme__selector__option" id="select-dark-theme" value="dark">Dark</button>
+                    <button class="theme__selector__option" id="select-light-theme" value="light">Light</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="JsInterlayer/settings.js"></script>
     <script src="JsInterlayer/downloader.js"></script>
 </div>
 </body>
